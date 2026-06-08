@@ -16,3 +16,9 @@ export type ProductListType = {
   features: string;
   createdAt: string;
 };
+
+export type ProductListProps = {
+  product: ProductListType[];
+  loading: boolean;
+  fetchProduct: () => Promise<void>;
+};

@@ -1,26 +1,44 @@
-import axios, { AxiosError, isAxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 import type { ProductListType } from "../../types/types";
-import { BASE_API_URL } from "../../configs/baseUrl";
-import { useState } from "react";
+
+import { useCallback, useEffect, useState } from "react";
+import ProductListUi from "../ui/ProductListUi";
+import api from "../../configs/api";
 
 export default function ProductList() {
-  const [Product, setProduct] = useState<ProductListType[] | null>([]);
+  const [product, setProduct] = useState<ProductListType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const FetchProducts = axios
-    .get(BASE_API_URL(`products`))
-    .then((res) => {
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await api.get("products");
       const data = res.data;
       setProduct(data);
-    })
-    .catch((err) => {
-      if (err instanceof AxiosError) {
-        isAxiosError(err);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        isAxiosError(error.response?.data || error.message);
       } else {
-        console.error(err);
+        console.log(error);
       }
-    });
-  console.log(Product);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-  FetchProducts();
-  return { Product };
+  useEffect(() => {
+    const runFun = () => {
+      fetchProducts();
+    };
+    runFun();
+  }, [fetchProducts]);
+  return (
+    <div>
+      <ProductListUi
+        product={product}
+        loading={loading}
+        fetchProduct={fetchProducts}
+      />
+    </div>
+  );
 }
