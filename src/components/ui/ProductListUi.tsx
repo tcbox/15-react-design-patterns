@@ -31,6 +31,11 @@ export default function ProductListUi({
                 <div>{item.category}</div>
                 <div>{item.price}</div>
                 <div>{item.description}</div>
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="p-1 bg-gray-300 rounded-xs"
+                />
               </div>
             ))}
           </div>
