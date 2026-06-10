@@ -34,7 +34,7 @@ export default function Todo() {
 
   return (
     /* h-auto & min-h-fit dynamically grows the box size as elements stack up */
-    <div className="min-h-fit h-auto w-full space-y-3 flex flex-col items-center p-4 text-white">
+    <div className="min-h-fit h-auto w-full space-y-3 flex flex-col items-center  text-white">
       <div>
         <h1 className="text-xl font-semibold text-white">Todo</h1>
       </div>

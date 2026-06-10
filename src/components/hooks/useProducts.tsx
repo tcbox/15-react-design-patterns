@@ -1,11 +1,9 @@
+import { useEffect, useState, useCallback } from "react";
+import api from "../../configs/api";
 import { AxiosError, isAxiosError } from "axios";
 import type { ProductListType } from "../../types/types";
 
-import { useCallback, useEffect, useState } from "react";
-import ProductListUi from "../ui/ProductListUi";
-import api from "../../configs/api";
-
-export default function ProductList() {
+function useProducts() {
   const [product, setProduct] = useState<ProductListType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -13,7 +11,13 @@ export default function ProductList() {
     try {
       setLoading(true);
       const res = await api.get("products");
-      const data = res.data;
+      const data = res.data.map((item: ProductListType) => {
+        return {
+          ...item,
+          price: Number(item.price),
+          rating: Number(item.rating),
+        };
+      });
       setProduct(data);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -32,13 +36,7 @@ export default function ProductList() {
     };
     runFun();
   }, [fetchProducts]);
-  return (
-    <div>
-      <ProductListUi
-        product={product}
-        loading={loading}
-        fetchProduct={fetchProducts}
-      />
-    </div>
-  );
+  return { product, loading, fetchProducts };
 }
+
+export default useProducts;

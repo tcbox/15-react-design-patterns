@@ -1,3 +1,5 @@
+import type React from "react";
+
 export type ProductListType = {
   id: string;
   name: string;
@@ -20,5 +22,22 @@ export type ProductListType = {
 export type ProductListProps = {
   product: ProductListType[];
   loading: boolean;
-  fetchProduct: () => Promise<void>;
+};
+export interface ProductFilters {
+  search: string;
+  category: string;
+  brand: string;
+  minPrice: number;
+  maxPrice: number;
+  minRating: number;
+  inStock: boolean;
+  sortBy: string;
+}
+export type CatogeryOnlyType = Pick<ProductListType, "category" | "categoryId">;
+
+export type RecommendedTagsProps = {
+  product: CatogeryOnlyType[];
+  filter: ProductFilters;
+  fetchProducts: () => Promise<void> | void;
+  setfilter: React.Dispatch<React.SetStateAction<ProductFilters>>;
 };
