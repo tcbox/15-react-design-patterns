@@ -27,16 +27,15 @@ function AppDp() {
   return (
     <div>
       <NavBar />
-      <div className="flex">
+      <div className="flex h-screen">
         <div className="w-2/12 bg-gray-800">
-          <FilterProducts />
+          <FilterProducts filter={filter} setfilter={setFilter} />
         </div>
         <div className=" w-10/12 ">
           <div className="flex items-center justify-center ">
             <RecommendedOption
               product={product}
               filter={filter}
-              setfilter={setFilter}
               fetchProducts={fetchProducts}
             />
           </div>

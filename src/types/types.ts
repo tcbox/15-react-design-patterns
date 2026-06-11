@@ -1,5 +1,3 @@
-import type React from "react";
-
 export type ProductListType = {
   id: string;
   name: string;
@@ -39,5 +37,5 @@ export type RecommendedTagsProps = {
   product: CatogeryOnlyType[];
   filter: ProductFilters;
   fetchProducts: () => Promise<void> | void;
-  setfilter: React.Dispatch<React.SetStateAction<ProductFilters>>;
+  // setfilter: React.Dispatch<React.SetStateAction<ProductFilters>>;
 };

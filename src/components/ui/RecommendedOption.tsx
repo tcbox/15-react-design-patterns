@@ -1,7 +1,7 @@
 import type { RecommendedTagsProps } from "../../types/types";
 
 function RecommendedOption(props: RecommendedTagsProps) {
-  const { product } = props;
+  const { product, fetchProducts, filter } = props;
 
   return (
     <div className="h-auto px-5 py-4 w-full justify-items-start z-10">
@@ -23,6 +23,7 @@ function RecommendedOption(props: RecommendedTagsProps) {
         >
           Get Products
         </button>
+        <div>{filter.minRating}</div>
       </div>
     </div>
   );
